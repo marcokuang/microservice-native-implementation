@@ -10,6 +10,7 @@ export default function PostCreate() {
       title,
     });
     console.log(result);
+    setTitle("");
   };
 
   const handleTitleChange = (e) => {
