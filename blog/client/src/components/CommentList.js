@@ -12,8 +12,16 @@ export default function CommentList({ comments }) {
   // }, [postId]);
 
   const renderComments = () => {
-    return comments.map((comment) => {
-      return <li key={comment.id}>{comment.comment}</li>;
+    return comments.map(({ id, comment, status }) => {
+      let result = comment;
+      if (status === "rejected") {
+        result = "The comment has been rejected";
+      }
+
+      if (status === "pending") {
+        result = "Comment is awaiting moderation";
+      }
+      return <li key={id}>{result}</li>;
     });
   };
 
