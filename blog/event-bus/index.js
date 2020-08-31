@@ -12,13 +12,13 @@ app.post("/events", (req, res) => {
   try {
     // post service
     events.push(event);
-    axios.post("http://localhost:4000/events", event);
+    axios.post("http://posts-clusterip-srv:4000/events", event);
     // comment service
-    axios.post("http://localhost:4001/events", event);
+    axios.post("http://comments-clusterip-srv:4001/events", event);
     // moderation Service
-    axios.post("http://localhost:4003/events", event);
+    axios.post("http://moderation-clusterip-srv:4003/events", event);
     // query Service
-    axios.post("http://localhost:4004/events", event);
+    axios.post("http://query-clusterip-srv:4004/events", event);
     console.log(event);
     res.send({ status: "OK" });
   } catch (err) {
@@ -31,5 +31,6 @@ app.get("/events", (req, res) => {
 });
 
 app.listen(4005, () => {
-  console.log("Listening on port 4005");
+  console.log("version 3: update urls for microservices");
+  console.log(">>>Listening on port 4005");
 });

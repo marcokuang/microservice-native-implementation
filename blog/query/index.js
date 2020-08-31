@@ -29,7 +29,7 @@ function handleEvents(type, data) {
     foundComment.status = status;
   }
 }
-app.get("/posts", (req, res) => {
+app.get("/query/posts", (req, res) => {
   res.send(posts);
 });
 
@@ -43,7 +43,7 @@ app.post("/events", (req, res) => {
 
 app.listen(4004, async () => {
   console.log("Query service is listening on port 4004");
-  const result = await axios.get("http://localhost:4005/events");
+  const result = await axios.get("http://event-bus-srv:4005/events");
 
   for (let event of result.data) {
     console.log("Processing events", event.type);

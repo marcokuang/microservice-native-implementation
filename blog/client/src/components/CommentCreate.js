@@ -10,7 +10,7 @@ export default function CommentCreate({ postId }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`http://localhost:4001/posts/${postId}/comments`, {
+      .post(`http://localhost/posts/${postId}/comments`, {
         comment,
       })
       .then(() => {
