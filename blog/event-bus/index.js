@@ -1,10 +1,12 @@
 const express = require("express");
 const axios = require("axios");
 const bodyParser = require("body-parser");
+const Config = require("./config");
 
 const app = express();
 app.use(bodyParser.json());
 
+// Event data store
 const events = [];
 
 app.post("/events", (req, res) => {
@@ -12,13 +14,13 @@ app.post("/events", (req, res) => {
   try {
     // post service
     events.push(event);
-    axios.post("http://posts-clusterip-srv:4000/events", event);
+    axios.post(Config.POST, event);
     // comment service
-    axios.post("http://comments-clusterip-srv:4001/events", event);
+    axios.post(Config.COMMENT, event);
     // moderation Service
-    axios.post("http://moderation-clusterip-srv:4003/events", event);
+    axios.post(Config.MODERATION, event);
     // query Service
-    axios.post("http://query-clusterip-srv:4004/events", event);
+    axios.post(Config.QUERY, event);
     console.log(event);
     res.send({ status: "OK" });
   } catch (err) {

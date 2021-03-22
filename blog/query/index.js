@@ -7,7 +7,10 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+// post pool that stores all the posts for the app
 const posts = {};
+
+// handles and filters certain types events from event bus
 function handleEvents(type, data) {
   if (type === "PostCreated") {
     const { id, title } = data;
@@ -29,10 +32,13 @@ function handleEvents(type, data) {
     foundComment.status = status;
   }
 }
+
+// send out all the posts the Query service has so far
 app.get("/query/posts", (req, res) => {
   res.send(posts);
 });
 
+// This post request listener handles receiving events from event bus
 app.post("/events", (req, res) => {
   const { type, data } = req.body;
 
@@ -41,12 +47,13 @@ app.post("/events", (req, res) => {
   res.send({});
 });
 
+// when the service starts, it requests all the events from the event bus to set up initial data
 app.listen(4004, async () => {
   console.log("Query service is listening on port 4004");
   const result = await axios.get("http://event-bus-srv:4005/events");
 
   for (let event of result.data) {
-    console.log("Processing events", event.type);
+    console.log("Query Service -- ", "Processing events", event.type);
     handleEvents(event.type, event.data);
   }
 });
