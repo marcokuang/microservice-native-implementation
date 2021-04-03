@@ -33,6 +33,6 @@ app.get("/events", (req, res) => {
 });
 
 app.listen(4005, () => {
-  console.log("version 3: update urls for microservices");
+  console.log("version 1: initial commit");
   console.log(">>>Listening on port 4005");
 });

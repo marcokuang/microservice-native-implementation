@@ -36,6 +36,24 @@ app.post("/posts", async (req, res) => {
   res.status(201).send(posts[id]);
 });
 
+// test without event bus
+// app.post("/posts", (req, res) => {
+//   const id = randomBytes(4).toString("hex");
+//   const { title } = req.body;
+//   posts[id] = {
+//     id,
+//     title,
+//   };
+//   // await axios.post("http://event-bus-srv:4005/events", {
+//   //   type: "PostCreated",
+//   //   data: {
+//   //     id,
+//   //     title,
+//   //   },
+//   // });
+//   res.status(201).send(posts[id]);
+// });
+
 app.post("/events", (req, res) => {
   const { type } = req.body;
   console.log(`Event <${type}> received`);
@@ -43,6 +61,6 @@ app.post("/events", (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log("version 4");
+  console.log("version 3.28.1");
   console.log("Post Service --- port: 4000");
 });

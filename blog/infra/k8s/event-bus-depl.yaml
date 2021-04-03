@@ -16,6 +16,10 @@ spec:
         - name: event-bus
           image: marcok/event-bus
           imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "800m"
 ---
 apiVersion: v1
 kind: Service
